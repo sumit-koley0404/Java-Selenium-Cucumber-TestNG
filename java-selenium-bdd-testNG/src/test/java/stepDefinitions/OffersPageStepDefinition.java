@@ -1,20 +1,13 @@
 package stepDefinitions;
 
-import java.time.Duration;
 import java.util.Iterator;
 import java.util.Set;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
-import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
-import io.cucumber.java.en.When;
+
+import pageObjects.OffersPage;
 import utils.TestContextSetup;
 
 public class OffersPageStepDefinition {
@@ -27,20 +20,14 @@ public class OffersPageStepDefinition {
 	}
 	
 	@Then("User Searched for Same ShortName {string} in offers page")
-	public void user_searched_for_same_short_name_in_offers_page(String shortName) {
+	public void user_searched_for_same_short_name_in_offers_page(String shortName) throws InterruptedException {
 		
 		switchToOffersPage();
-		//wait for Search Box Locator to be visible in the child Window 
-		WebDriverWait wait = new WebDriverWait(testContextSetup.driver,Duration.ofSeconds(10));
-		WebElement searchBox = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@type='search']")));
-		//Search with the product name 
-		searchBox.sendKeys(shortName);
-		WebElement productContainer  = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[text()='Tomato']")));
-		//Extracted Text from the offers page Product
-		offersPagePN = productContainer.getText();
+		Thread.sleep(2000);
+		OffersPage offersPage = new OffersPage(testContextSetup.driver);
+		offersPage.searchItems(shortName);
+		offersPagePN = offersPage.getSearchedText();
 		System.out.println(offersPagePN);
-			
-		
 	}
 	public void switchToOffersPage()
 	{
