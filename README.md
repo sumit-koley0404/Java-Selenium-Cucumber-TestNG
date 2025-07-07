@@ -4,7 +4,7 @@ A modular test automation framework using Java, Selenium WebDriver, and Cucumber
 ### 📦 Tech Stack:
 - Java, Selenium WebDriver
 - Cucumber BDD
-- TestNG / JUnit (if used)
+- TestNG 
 - Maven
 
 ### 🚀 How to Run
